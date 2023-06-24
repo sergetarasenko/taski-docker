@@ -1,13 +1,19 @@
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-j_89af+30&&4qm*8z9_(^zz8p4-ho8z_m6ylm0s$h!-p@on1_^'
+# SECRET_KEY = 'django-insecure-j_89af+30&&4qm*8z9_(^zz8p4-ho8z_m6ylm0s$h!-p@on1_^'
+SECRET_KEY = os.getenv('SECRET_KEY', 'secret_key')
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['tarasenko.zapto.org', '158.160.14.241', '127.0.0.1', 'localhost']
+# ALLOWED_HOSTS = ['tarasenko.zapto.org', '158.160.14.241', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = list(os.getenv('ALLOWED_HOSTS', 'localhost').split())
 
 # Application definition
 
@@ -59,7 +65,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('POSTGRES_DB', 'django'),
         'USER': os.getenv('POSTGRES_USER', 'django'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD', ''),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'password'),
         'HOST': os.getenv('DB_HOST', 'db'),
         'PORT': os.getenv('DB_PORT', 5432),
     }
